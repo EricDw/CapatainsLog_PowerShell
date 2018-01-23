@@ -59,3 +59,13 @@ Function Add-SupplamentToCaptainsLog {
 
 	$supplamentalText | Add-Content "$HOME\captainsLog\$year\$month\$day\$fileName"
 }
+
+
+Function New-ReviewFile {
+
+	$date = Get-Date -Format yyyyMM;
+	
+	Get-ChildItem $HOME\captainsLog\ -Recurse |
+	Where-Object { $_.Name.StartsWith("CPL$date") -and $_.Name.EndsWith(".txt")} |
+	ForEach-Object { $_ | Get-Content | Add-Content "$HOME\CPLLogReview.md"};
+}
